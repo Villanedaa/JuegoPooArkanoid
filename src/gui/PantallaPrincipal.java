@@ -8,8 +8,10 @@ import player.Player;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 /**
  * Ventana principal del juego
@@ -21,13 +23,14 @@ import javax.swing.JFrame;
 public class PantallaPrincipal extends JPanel {
    
     private Player jugador;
-
+    private Image fondo;
     public PantallaPrincipal() {
+         fondo = new ImageIcon(getClass().getResource("/images/Jena.jpeg")).getImage();
         //permite los eventos del teclado
         setFocusable(true);
         //arregla los parpadeos de pantalla
         setDoubleBuffered(true);
-
+        
         // posicion inicial del jugador
         jugador = new Player(350, 550, 100, 15);
 
@@ -56,13 +59,38 @@ public class PantallaPrincipal extends JPanel {
         Timer timer = new Timer(16, e -> repaint());
         timer.start();
     }
-
     @Override
-    protected void paintComponent(Graphics g) {
+protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    // pintar fondo negro
+    g.setColor(java.awt.Color.BLACK);
+    g.fillRect(0, 0, getWidth(), getHeight());
+
+    
+    int imgWidth = fondo.getWidth(this);
+    int imgHeight = fondo.getHeight(this);
+
+    // centrar la imagen para no deformarla
+    int x = (getWidth() - imgWidth) / 2;
+    int y = (getHeight() - imgHeight) / 2;
+
+    // Dibujar imagen centrada sin deformar
+    g.drawImage(fondo, x, y, this);
+
+    // Dibujar el jugador
+    jugador.draw(g);
+}
+    
+    /**protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        //imagen de fondo
+        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
         //pintamos el jugador
         jugador.draw(g);
-    }
+        
+    }*/
+    
     public static void main(String[] args) {
         JFrame ventanaJuego = new JFrame("ARKANOID-TERROR");
         //cierra la ventana y finaliza todos los procesos que se esten ejecutando en segundo plano
