@@ -6,7 +6,9 @@ package player;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import javax.swing.ImageIcon;
 
 /**
  * clase que modela a nuestro jugador
@@ -25,6 +27,8 @@ public class Player {
    private int height;
    //velocidad de movimiento de 10 pixeles
    private int velocidad = 10;
+   // imagen que sera dibujada para nuestro jugador
+    private Image imagen;
     /**
      * Metodo constructor
      * @param x : coordenadas en x
@@ -37,6 +41,8 @@ public class Player {
         this.y = y;
         this.width = width;
         this.height = height;
+        // Cargar imagen desde la carpeta images
+        imagen = new ImageIcon(getClass().getResource("/images/maderaJugador.jpeg")).getImage();
     }
    /**
     * metodo que retorna coordenadas en x
@@ -117,8 +123,7 @@ public class Player {
      * @param g 
      */
     public void draw(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.fillRect(x, y, width, height);
+        g.drawImage(imagen, x, y, width, height, null);
     }
     public Rectangle obtenerLimites() {
     return new Rectangle(x, y, width, height);
