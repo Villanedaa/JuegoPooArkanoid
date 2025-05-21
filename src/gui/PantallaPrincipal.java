@@ -4,6 +4,7 @@
  */
 package gui;
 
+import sonidos.ReproductorSonido;
 import player.Player;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -92,6 +93,10 @@ protected void paintComponent(Graphics g) {
     }*/
     
     public static void main(String[] args) {
+        //sonido de fondo
+         ReproductorSonido sonido = new ReproductorSonido("/sounds/sonidoFondoJuego.wav");
+         sonido.playLoop();
+    
         JFrame ventanaJuego = new JFrame("ARKANOID-TERROR");
         //cierra la ventana y finaliza todos los procesos que se esten ejecutando en segundo plano
         ventanaJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
