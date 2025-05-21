@@ -66,7 +66,7 @@ public class PantallaPrincipal extends JPanel {
         //cierra la ventana y finaliza todos los procesos que se esten ejecutando en segundo plano
         ventanaJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventanaJuego.setSize(800, 600);
-        //centrar la pantalla
+        //centrar la pantallaa
         ventanaJuego.setLocationRelativeTo(null);
         ventanaJuego.add(new PantallaPrincipal());
         ventanaJuego.setVisible(true);
