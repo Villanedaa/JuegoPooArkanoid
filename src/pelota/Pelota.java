@@ -14,7 +14,7 @@ import player.Player;
  * @author GEIDG<su correo>
  */
 public class Pelota {
-     private int x, y;
+    private int x, y;
     private int diametro = 15;
     private int dx = 4; // Velocidad horizontal
     private int dy = -4; // Velocidad vertical
@@ -49,8 +49,21 @@ public class Pelota {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
         if (ballRect.intersects(playerRect)) {
-            dy = -dy;
-            y = player.getY() - diametro; // Colocar la bola encima del jugador
+            // Rebotar hacia arriba
+            dy = -Math.abs(dy);
+
+            // Cambiar dirección horizontal según punto de contacto
+            int ballCenter = x + diametro / 2;
+            int playerCenter = player.getX() + player.getWidth() / 2;
+
+            if (ballCenter < playerCenter) {
+                dx = -Math.abs(dx); // Izquierda
+            } else {
+                dx = Math.abs(dx); // Derecha
+            }
+
+            // Reubicar justo encima del jugador
+            y = player.getY() - diametro;
         }
     }
 
@@ -69,5 +82,4 @@ public class Pelota {
     public int getX() { return x; }
     public int getY() { return y; }
     public int getDiameter() { return diametro; }
-    
 }

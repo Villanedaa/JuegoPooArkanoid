@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import pelota.Pelota;
 /**
  * Ventana principal del juego
  * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
@@ -22,7 +23,7 @@ import javax.swing.JFrame;
  */
 
 public class PantallaPrincipal extends JPanel {
-   
+    private Pelota pelota;
     private Player jugador;
     private Image fondo;
     public PantallaPrincipal() {
@@ -34,6 +35,8 @@ public class PantallaPrincipal extends JPanel {
         
         // posicion inicial del jugador
         jugador = new Player(350, 550, 100, 15);
+        //posicion de la pellota
+        pelota = new Pelota(390, 400);
 
         // eventos de teclado
         addKeyListener(new KeyAdapter() {
@@ -57,8 +60,13 @@ public class PantallaPrincipal extends JPanel {
          * este tambien funciona para que nuestro frame se siga repitando asi no hayan
          * eventos de teclado
          */
-        Timer timer = new Timer(16, e -> repaint());
-        timer.start();
+       Timer timer = new Timer(16, e -> {
+    pelota.move(getWidth(), getHeight());
+    pelota.checkCollisionWithPlayer(jugador);
+    repaint();
+    });
+       //se inicia el timer
+       timer.start();
     }
     @Override
 protected void paintComponent(Graphics g) {
@@ -81,6 +89,9 @@ protected void paintComponent(Graphics g) {
 
     // Dibujar el jugador
     jugador.draw(g);
+    
+    //dibujar pelota
+    pelota.draw(g);
 }
     
     /**protected void paintComponent(Graphics g) {
