@@ -96,7 +96,7 @@ protected void paintComponent(Graphics g) {
         //sonido de fondo
          ReproductorSonido sonido = new ReproductorSonido("/sounds/sonidoFondoJuego.wav");
          sonido.playLoop();
-    
+         //se genera la ventana
         JFrame ventanaJuego = new JFrame("ARKANOID-TERROR");
         //cierra la ventana y finaliza todos los procesos que se esten ejecutando en segundo plano
         ventanaJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
