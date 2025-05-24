@@ -143,7 +143,7 @@ public class PantallaPrincipal extends JPanel {
             ladrillo.draw(g);
 }
     }
-
+/*
     public static void main(String[] args) {
         //sonido de fondo
         ReproductorSonido sonido = new ReproductorSonido("/sounds/sonidoFondoJuego.wav");
@@ -159,4 +159,5 @@ public class PantallaPrincipal extends JPanel {
         ventanaJuego.add(new PantallaPrincipal());
         ventanaJuego.setVisible(true);
     }
+    */
 }
