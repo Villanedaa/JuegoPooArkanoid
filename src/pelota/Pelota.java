@@ -78,7 +78,21 @@ public class Pelota {
         g.fillOval(x, y, diametro, diametro);
     }
 
-    public int getX() { return x; }
-    public int getY() { return y; }
-    public int getDiameter() { return diametro; }
-}
+    public int getX() {
+        return x;
+    }
+    public int getY(){
+    return y;
+    }
+    public int getDiameter() {
+        return diametro; 
+    }
+    
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, diametro, diametro);
+     }
+
+    public void rebotar() {
+            dy = -dy;
+        }
+    }

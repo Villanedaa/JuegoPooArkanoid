@@ -12,8 +12,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import models.ladrillo.Ladrillo;
 import pelota.Pelota;
 import screamer.ScreamerGIF;
 
@@ -29,6 +31,8 @@ public class PantallaPrincipal extends JPanel {
     private Pelota pelota;
     private Player jugador;
     private Image fondo;
+    private ArrayList<Ladrillo> ladrillos;
+
 
     public PantallaPrincipal() {
          fondo = new ImageIcon(getClass().getResource("/images/Jena.jpeg")).getImage();
@@ -41,6 +45,24 @@ public class PantallaPrincipal extends JPanel {
         jugador = new Player(350, 550, 100, 15);
         //posicion de la pelota
         pelota = new Pelota(390, 400);
+        
+        // se crean los ladrillos 
+        ladrillos = new ArrayList<>();
+        int columnas = 10;
+        int filas = 5;
+        int anchoLadrillo = 60;
+        int altoLadrillo = 20;
+        int espacio = 10;
+        int margenX = 50;
+        int margenY = 50;
+
+        for (int fila = 0; fila < filas; fila++) {
+            for (int col = 0; col < columnas; col++) {
+                int x = margenX + col * (anchoLadrillo + espacio);
+                int y = margenY + fila * (altoLadrillo + espacio);
+                ladrillos.add(new Ladrillo(x, y, anchoLadrillo, altoLadrillo));
+            }
+        }
 
         // eventos de teclado
         addKeyListener(new KeyAdapter() {
@@ -80,7 +102,15 @@ public class PantallaPrincipal extends JPanel {
                     }).start();
                 }
             }
+            
             repaint();
+            for (Ladrillo ladrillo : ladrillos) {
+    if (!ladrillo.isDestruido() && pelota.getBounds().intersects(ladrillo.getBounds())) {
+        ladrillo.setDestruido(true);
+        pelota.rebotar(); // debes asegurarte de tener este método o implementarlo
+        break;
+    }
+}
         });
        timer.start();
     }
@@ -108,6 +138,10 @@ public class PantallaPrincipal extends JPanel {
 
         // Dibujar la pelota
         pelota.draw(g);
+        //dibujar los ladrillos
+        for (Ladrillo ladrillo : ladrillos) {
+            ladrillo.draw(g);
+}
     }
 
     public static void main(String[] args) {
