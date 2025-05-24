@@ -9,15 +9,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import player.Player;
 
-/**
- *
- * @author GEIDG<su correo>
- */
 public class Pelota {
     private int x, y;
     private int diametro = 15;
     private int dx = 4; // Velocidad horizontal
     private int dy = -4; // Velocidad vertical
+    private boolean perdio = false;
 
     public Pelota(int x, int y) {
         this.x = x;
@@ -25,6 +22,8 @@ public class Pelota {
     }
 
     public void move(int ancho, int alto) {
+        if (perdio) return; // No mover si ya perdió
+
         x += dx;
         y += dy;
 
@@ -40,29 +39,24 @@ public class Pelota {
 
         // Si toca el fondo (pierde)
         if (y >= alto) {
-            reset(ancho, alto);
+            perdio = true;
         }
     }
 
     public void checkCollisionWithPlayer(Player player) {
+        if (perdio) return; // No colisiones si ya perdió
+
         Rectangle ballRect = new Rectangle(x, y, diametro, diametro);
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
         if (ballRect.intersects(playerRect)) {
-            // Rebotar hacia arriba
             dy = -Math.abs(dy);
 
-            // Cambiar dirección horizontal según punto de contacto
             int ballCenter = x + diametro / 2;
             int playerCenter = player.getX() + player.getWidth() / 2;
 
-            if (ballCenter < playerCenter) {
-                dx = -Math.abs(dx); // Izquierda
-            } else {
-                dx = Math.abs(dx); // Derecha
-            }
+            dx = (ballCenter < playerCenter) ? -Math.abs(dx) : Math.abs(dx);
 
-            // Reubicar justo encima del jugador
             y = player.getY() - diametro;
         }
     }
@@ -72,6 +66,11 @@ public class Pelota {
         y = panelHeight / 2 - diametro / 2;
         dx = 4;
         dy = -4;
+        perdio = false;
+    }
+
+    public boolean perdio() {
+        return perdio;
     }
 
     public void draw(Graphics g) {

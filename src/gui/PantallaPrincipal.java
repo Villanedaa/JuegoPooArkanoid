@@ -15,6 +15,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import pelota.Pelota;
+import screamer.ScreamerGIF;
+
 /**
  * Ventana principal del juego
  * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
@@ -23,9 +25,11 @@ import pelota.Pelota;
  */
 
 public class PantallaPrincipal extends JPanel {
+    private boolean enScreamer = false;
     private Pelota pelota;
     private Player jugador;
     private Image fondo;
+
     public PantallaPrincipal() {
          fondo = new ImageIcon(getClass().getResource("/images/Jena.jpeg")).getImage();
         //permite los eventos del teclado
@@ -35,7 +39,7 @@ public class PantallaPrincipal extends JPanel {
         
         // posicion inicial del jugador
         jugador = new Player(350, 550, 100, 15);
-        //posicion de la pellota
+        //posicion de la pelota
         pelota = new Pelota(390, 400);
 
         // eventos de teclado
@@ -52,70 +56,73 @@ public class PantallaPrincipal extends JPanel {
             }
         });
 
-        
         /**
-         * 
-         * repintar cada 16 ms
+         * repintar cada 16 ms (aprox 60 FPS)
          * sirve para evitar que el juego o la pantalla se congele
-         * este tambien funciona para que nuestro frame se siga repitando asi no hayan
+         * este también funciona para que nuestro frame se siga repitiendo así no hayan
          * eventos de teclado
          */
        Timer timer = new Timer(16, e -> {
-    pelota.move(getWidth(), getHeight());
-    pelota.checkCollisionWithPlayer(jugador);
-    repaint();
-    });
-       //se inicia el timer
+            if (!enScreamer) {
+                pelota.move(getWidth(), getHeight());
+                pelota.checkCollisionWithPlayer(jugador);
+
+                if (pelota.perdio()) {
+                    enScreamer = true;
+
+                    // Mostrar screamer + sonido en otro hilo para no bloquear GUI
+                    new Thread(() -> {
+                        ScreamerGIF.mostrarScreamerConSonido("videos/jefGIF.gif", "sounds/gritoTerror.wav");
+
+                        // Reiniciar pelota y continuar juego
+                        pelota.reset(getWidth(), getHeight());
+                        enScreamer = false;
+                    }).start();
+                }
+            }
+            repaint();
+        });
        timer.start();
     }
+
     @Override
-protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-
-    // pintar fondo negro
-    g.setColor(java.awt.Color.BLACK);
-    g.fillRect(0, 0, getWidth(), getHeight());
-
-    
-    int imgWidth = fondo.getWidth(this);
-    int imgHeight = fondo.getHeight(this);
-
-    // centrar la imagen para no deformarla
-    int x = (getWidth() - imgWidth) / 2;
-    int y = (getHeight() - imgHeight) / 2;
-
-    // Dibujar imagen centrada sin deformar
-    g.drawImage(fondo, x, y, this);
-
-    // Dibujar el jugador
-    jugador.draw(g);
-    
-    //dibujar pelota
-    pelota.draw(g);
-}
-    
-    /**protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //imagen de fondo
-        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
-        //pintamos el jugador
+
+        // pintar fondo negro
+        g.setColor(java.awt.Color.BLACK);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        int imgWidth = fondo.getWidth(this);
+        int imgHeight = fondo.getHeight(this);
+
+        // centrar la imagen para no deformarla
+        int x = (getWidth() - imgWidth) / 2;
+        int y = (getHeight() - imgHeight) / 2;
+
+        // Dibujar imagen centrada sin deformar
+        g.drawImage(fondo, x, y, this);
+
+        // Dibujar el jugador
         jugador.draw(g);
-        
-    }*/
-    
+
+        // Dibujar la pelota
+        pelota.draw(g);
+    }
+
     public static void main(String[] args) {
         //sonido de fondo
-         ReproductorSonido sonido = new ReproductorSonido("/sounds/sonidoFondoJuego.wav");
-         sonido.playLoop();
-         //se genera la ventana
+        ReproductorSonido sonido = new ReproductorSonido("/sounds/sonidoFondoJuego.wav");
+        sonido.playLoop();
+
+        //se genera la ventana
         JFrame ventanaJuego = new JFrame("ARKANOID-TERROR");
-        //cierra la ventana y finaliza todos los procesos que se esten ejecutando en segundo plano
+        //cierra la ventana y finaliza todos los procesos que se estén ejecutando en segundo plano
         ventanaJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventanaJuego.setSize(800, 600);
-        //centrar la pantallaa
+        //centrar la pantalla
         ventanaJuego.setLocationRelativeTo(null);
         ventanaJuego.add(new PantallaPrincipal());
         ventanaJuego.setVisible(true);
     }
 }
-
