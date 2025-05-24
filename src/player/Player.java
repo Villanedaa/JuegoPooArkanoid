@@ -26,7 +26,7 @@ public class Player {
    //alto
    private int height;
    //velocidad de movimiento de 10 pixeles
-   private int velocidad = 10;
+   private int velocidad = 12;
    // imagen que sera dibujada para nuestro jugador
     private Image imagen;
     /**
