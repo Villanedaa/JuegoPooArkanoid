@@ -4,7 +4,10 @@
  */
 package gui;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import sonidos.ReproductorSonido;
 
 /**
@@ -13,6 +16,7 @@ import sonidos.ReproductorSonido;
  */
 public class Menu extends javax.swing.JFrame {
 private ReproductorSonido sonidoMenu;
+private java.util.List<Integer> puntajesAltos = new ArrayList<>();
     /**
      * Creates new form Menu
      */
@@ -206,7 +210,20 @@ private ReproductorSonido sonidoMenu;
     }//GEN-LAST:event_btnJUGARActionPerformed
 
     private void btnPUNTAJEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPUNTAJEActionPerformed
-        // TODO add your handling code here:
+        StringBuilder sb = new StringBuilder();
+        sb.append("TOP PUNTAJES:\n\n");
+        
+        puntajesAltos.sort(Collections.reverseOrder());
+        
+        for (int i = 0; i < Math.min(5, puntajesAltos.size()); i++) {
+            sb.append((i+1)).append(". ").append(puntajesAltos.get(i)).append("\n");
+        }
+        
+        if (puntajesAltos.isEmpty()) {
+            sb.append("Aún no hay puntajes registrados");
+        }
+        
+        JOptionPane.showMessageDialog(this, sb.toString(), "Puntajes Altos", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnPUNTAJEActionPerformed
     public void setSonidoMenu(ReproductorSonido sonido) {
     this.sonidoMenu = sonido;

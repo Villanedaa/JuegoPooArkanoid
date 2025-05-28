@@ -12,30 +12,28 @@ package models.ladrillo;
  */
 
 
-
-
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Ladrillo {
     private int x, y, ancho, alto;
     private boolean destruido;
+    private int valorPuntos;
     private static Image imagenLadrillo;
 
     static {
-        // Carga la imagen una sola vez para todas las instancias
-       imagenLadrillo = new ImageIcon(Ladrillo.class.getResource("/images/ladrilloSangre.jpeg")).getImage();
-
+        imagenLadrillo = new ImageIcon(Ladrillo.class.getResource("/images/ladrilloSangre.jpeg")).getImage();
     }
 
-    public Ladrillo(int x, int y, int ancho, int alto) {
+    public Ladrillo(int x, int y, int ancho, int alto, int fila) {
         this.x = x;
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
         this.destruido = false;
+        this.valorPuntos = (6 - fila) * 10;
     }
 
     public void draw(Graphics g) {
@@ -54,6 +52,10 @@ public class Ladrillo {
 
     public void setDestruido(boolean destruido) {
         this.destruido = destruido;
+    }
+
+    public int getValorPuntos() {
+        return valorPuntos;
     }
 }
 
