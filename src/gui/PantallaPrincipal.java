@@ -29,8 +29,6 @@ import screamer.ScreamerGIF;
  * @since 21/05/2025
  */
 
-
-
 public class PantallaPrincipal extends JPanel {
     private boolean enScreamer = false;
     private Pelota pelota;
@@ -38,6 +36,7 @@ public class PantallaPrincipal extends JPanel {
     private Image fondo;
     private ArrayList<Ladrillo> ladrillos;
     private Puntaje puntaje;
+    private int puntajeVisual = 0; // Puntaje mostrado visualmente
 
     public PantallaPrincipal() {
         fondo = new ImageIcon(getClass().getResource("/images/Jena.jpeg")).getImage();
@@ -79,31 +78,36 @@ public class PantallaPrincipal extends JPanel {
         });
 
         Timer timer = new Timer(16, e -> {
-            if (!enScreamer) {
-                pelota.move(getWidth(), getHeight());
-                pelota.checkCollisionWithPlayer(jugador);
+    if (!enScreamer) {
+        pelota.move(getWidth(), getHeight());
+        pelota.checkCollisionWithPlayer(jugador);
 
-                for (Ladrillo ladrillo : ladrillos) {
-                    if (!ladrillo.isDestruido() && pelota.getBounds().intersects(ladrillo.getBounds())) {
-                        ladrillo.setDestruido(true);
-                        puntaje.agregarPuntos(ladrillo.getValorPuntos());
-                        pelota.rebotar();
-                        break;
-                    }
-                }
-
-                if (pelota.perdio()) {
-                    puntaje.resetearRacha();
-                    enScreamer = true;
-
-                    new Thread(() -> {
-                        ScreamerGIF.mostrarScreamerConSonido("videos/jefGIF.gif", "sounds/gritoTerror.wav");
-                        pelota.reset(getWidth(), getHeight());
-                        enScreamer = false;
-                    }).start();
-                }
+        for (Ladrillo ladrillo : ladrillos) {
+            if (!ladrillo.isDestruido() && pelota.getBounds().intersects(ladrillo.getBounds())) {
+                ladrillo.setDestruido(true);
+                puntaje.agregarPuntos(1);  // <-- Aquí sumamos solo 1 punto por ladrillo
+                pelota.rebotar();
+                break;
             }
-            repaint();
+        }
+
+        // Incrementar visualmente el puntaje de uno en uno (animado)
+        if (puntajeVisual < puntaje.getPuntos()) {
+            puntajeVisual++;
+        }
+
+        if (pelota.perdio()) {
+            puntaje.resetearRacha();
+            enScreamer = true;
+
+            new Thread(() -> {
+                ScreamerGIF.mostrarScreamerConSonido("videos/jefGIF.gif", "sounds/gritoTerror.wav");
+                pelota.reset(getWidth(), getHeight());
+                enScreamer = false;
+            }).start();
+        }
+    }
+    repaint();
         });
         timer.start();
     }
@@ -123,18 +127,18 @@ public class PantallaPrincipal extends JPanel {
         // Dibujar información de puntaje
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("Puntos: " + puntaje.getPuntos(), 20, 30);
-        g.drawString("Multiplicador: x" + puntaje.getMultiplicador(), 20, 60);
-        g.drawString("Racha: " + puntaje.getRacha(), 20, 90);
+        g.drawString("Puntos: " + puntajeVisual, 20, 30);
+        g.drawString("Racha: " + puntaje.getRacha(), 300, 30);
 
         jugador.draw(g);
         pelota.draw(g);
+
         for (Ladrillo ladrillo : ladrillos) {
-            ladrillo.draw(g);
+             ladrillo.draw(g);
         }
     }
-}
-/*
+
+    /*
     public static void main(String[] args) {
         //sonido de fondo
         ReproductorSonido sonido = new ReproductorSonido("/sounds/sonidoFondoJuego.wav");
@@ -151,4 +155,4 @@ public class PantallaPrincipal extends JPanel {
         ventanaJuego.setVisible(true);
     }
     */
-
+}
