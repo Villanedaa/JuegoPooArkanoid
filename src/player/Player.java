@@ -99,7 +99,10 @@ public class Player {
     public Rectangle obtenerLimites() {
         return new Rectangle(x, y, width, height);
     }
-
+    public void setVidas(int vidas){
+    
+        this.vidas = vidas;
+    }
     // método para obtener las vidas
     public int getVidas() {
         return vidas;

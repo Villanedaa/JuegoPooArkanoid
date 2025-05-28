@@ -17,6 +17,7 @@ public class Instrucciones extends javax.swing.JFrame {
     public Instrucciones() {
         initComponents();
          setLocationRelativeTo(null);
+         setSize(800, 600);
     }
 
     /**

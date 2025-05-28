@@ -21,7 +21,6 @@ import models.ladrillo.Ladrillo;
 import puntaje.Puntaje;
 import pelota.Pelota;
 import screamer.ScreamerGIF;
-import javax.swing.JOptionPane;
 
 /**
  * Ventana principal del juego
@@ -37,7 +36,6 @@ public class PantallaPrincipal extends JPanel {
     private ArrayList<Ladrillo> ladrillos;
     private Puntaje puntaje;
     private int puntajeVisual = 0; // Puntaje mostrado visualmente
-    private int vidas = 2; // Cantidad de vidas del jugador
 
     public PantallaPrincipal() {
         fondo = new ImageIcon(getClass().getResource("/images/Jena.jpeg")).getImage();
@@ -46,6 +44,7 @@ public class PantallaPrincipal extends JPanel {
         puntaje = new Puntaje();
 
         jugador = new Player(350, 550, 100, 15);
+        jugador.setVidas(2); // Establecer 2 vidas al iniciar
         pelota = new Pelota(390, 400);
 
         ladrillos = new ArrayList<>();
@@ -98,15 +97,28 @@ public class PantallaPrincipal extends JPanel {
                 }
 
                 if (pelota.perdio()) {
-                    vidas--;
+                    // Se perdió una vida
+                    jugador.setVidas(jugador.getVidas() - 1);
                     puntaje.resetearRacha();
                     enScreamer = true;
 
-                    if (vidas <= 0) {
+                    // Si ya no tiene vidas, termina el juego
+                    if (jugador.getVidas() <= 0) {
                         puntaje.guardarPuntajeEnArchivo("puntajes.txt");
-                        JOptionPane.showMessageDialog(this, "¡Juego terminado!\nPuntaje final: " + puntaje.getPuntos());
-                        System.exit(0);
-                    } else {
+
+                        new Thread(() -> {
+                            ScreamerGIF.mostrarScreamerConSonido("videos/jefGIF.gif", "sounds/gritoTerror.wav");
+                            javax.swing.SwingUtilities.invokeLater(() -> {
+                                new VolverAJugar().setVisible(true);
+                                // Obtener ventana contenedora del panel y cerrarla
+                                java.awt.Window ventana = javax.swing.SwingUtilities.getWindowAncestor(this);
+                                if (ventana != null) {
+                                    ventana.dispose();
+                                    
+                                }
+                            });
+                        }).start();
+                    }else {
                         new Thread(() -> {
                             ScreamerGIF.mostrarScreamerConSonido("videos/jefGIF.gif", "sounds/gritoTerror.wav");
                             pelota.reset(getWidth(), getHeight());
@@ -132,12 +144,12 @@ public class PantallaPrincipal extends JPanel {
         int y = (getHeight() - imgHeight) / 2;
         g.drawImage(fondo, x, y, this);
 
-        // Dibujar información de puntaje
+        // Dibujar información de puntaje y vidas
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Puntos: " + puntajeVisual, 20, 30);
         g.drawString("Racha: " + puntaje.getRacha(), 300, 30);
-        g.drawString("Vidas: " + vidas, 500, 30);
+        g.drawString("Vidas: " + jugador.getVidas(), 600, 30);
 
         jugador.draw(g);
         pelota.draw(g);
