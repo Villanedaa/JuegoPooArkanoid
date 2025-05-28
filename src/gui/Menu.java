@@ -3,23 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
-
+/**
+ * se importan las clases necesarias
+ */
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sonidos.ReproductorSonido;
 
-/**
- *
- * @author Sebastian
+/**s
+ * Clase Main en donde iniciamos nuestro juego.
+ * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ * @version 1.0
+ * @since 28052025
  */
 public class Menu extends javax.swing.JFrame {
 private ReproductorSonido sonidoMenu;
 private java.util.List<Integer> puntajesAltos = new ArrayList<>();
+   
     /**
-     * Creates new form Menu
-     */
+    * metodo constructor
+    */
     public Menu() {
         initComponents();
         setLocationRelativeTo(null);
@@ -206,7 +211,10 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * si el jugador presiona este boton, Se llama al JFrame PantallaPrincipal y se inicia el juego
+     * @param evt 
+     */
     private void btnJUGARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJUGARActionPerformed
        if (sonidoMenu != null) {
         sonidoMenu.stop(); // Detiene la música del menú
@@ -243,11 +251,14 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
         
         JOptionPane.showMessageDialog(this, sb.toString(), "Puntajes Altos", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnPUNTAJEActionPerformed
-
+    /**
+     * si el jugador presiona este boton, Se cierra el Jframe actual
+     * @param evt 
+     */
     private void btnSALIR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSALIR1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSALIR1ActionPerformed
-
+    //  Si el jugador presiona este boton, Se abre un JFrame donde estan las instrucciones para jugar
     private void btnINSTRUCCION(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnINSTRUCCION
        Instrucciones i = new Instrucciones();
         i.setVisible(true);
