@@ -45,6 +45,7 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        btnSALIR1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,7 +91,12 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
 
         btnSALIR.setBackground(new java.awt.Color(0, 0, 0));
         btnSALIR.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSALIR.setText("SALIR");
+        btnSALIR.setText("INSTRUCCIONES");
+        btnSALIR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnINSTRUCCION(evt);
+            }
+        });
 
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calavera.jpg"))); // NOI18N
@@ -102,6 +108,15 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ladrilloSangre.jpeg"))); // NOI18N
         jLabel6.setText("jLabel2");
+
+        btnSALIR1.setBackground(new java.awt.Color(0, 0, 0));
+        btnSALIR1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSALIR1.setText("SALIR");
+        btnSALIR1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSALIR1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -129,11 +144,14 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
                                         .addGap(12, 12, 12)
                                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnSALIR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSALIR1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnJUGAR, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnPUNTAJE, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnJUGAR, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnPUNTAJE, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(154, 154, 154)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44))))
@@ -164,6 +182,8 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSALIR1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,6 +245,15 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
         
         JOptionPane.showMessageDialog(this, sb.toString(), "Puntajes Altos", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnPUNTAJEActionPerformed
+
+    private void btnSALIR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSALIR1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSALIR1ActionPerformed
+
+    private void btnINSTRUCCION(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnINSTRUCCION
+       Instrucciones i = new Instrucciones();
+        i.setVisible(true);
+    }//GEN-LAST:event_btnINSTRUCCION
     public void setSonidoMenu(ReproductorSonido sonido) {
     this.sonidoMenu = sonido;
     }
@@ -249,6 +278,7 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
     private javax.swing.JButton btnJUGAR;
     private javax.swing.JButton btnPUNTAJE;
     private javax.swing.JButton btnSALIR;
+    private javax.swing.JButton btnSALIR1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

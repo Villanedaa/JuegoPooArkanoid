@@ -39,7 +39,7 @@ public class Puntaje {
 
     public int calcularBonificacionTiempo() {
         long tiempoTranscurrido = (System.currentTimeMillis() - tiempoInicio) / 1000;
-        return Math.max(0, 5000 - (int)tiempoTranscurrido * 10);
+        return Math.max(0, 0 - (int)tiempoTranscurrido * 10);
     }
 
     public int getPuntos() {
