@@ -3,13 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package puntaje;
-
+/**
+ * clase que modela el sistema de puntaje
+ * @authorc camilo cardona
+ * @version 1.0
+ * @since 27/05/2025
+ */
 public class Puntaje {
     private int puntos;
     private int multiplicador;
     private long tiempoInicio;
     private int racha;
-
+/**
+ * metodo constructor 
+ */
     public Puntaje() {
         this.puntos = 0;
         this.multiplicador = 1;
