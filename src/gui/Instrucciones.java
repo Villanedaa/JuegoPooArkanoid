@@ -6,13 +6,15 @@ package gui;
  */
 
 /**
- *
- * @author Sebastian
+ * clase que muestra las instrucciones para jugar
+ * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ * @version 1.0
+ * @since 27052025
  */
 public class Instrucciones extends javax.swing.JFrame {
 
     /**
-     * Creates new form Instrucciones
+     * Metodo constructor
      */
     public Instrucciones() {
         initComponents();
@@ -142,7 +144,10 @@ public class Instrucciones extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * si el jugador elige esta opcion, cerrramos el frame actual
+ * @param evt 
+ */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
