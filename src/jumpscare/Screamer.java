@@ -1,12 +1,23 @@
+/*
+ * Click nbfs://nbhost/SystemFile/Templates/Licenses/license.txt to change this license
+ * Click nbfs://nbhost/SystemFile/Templates/Classes/Class.java to edit this template
+ */
 package jumpscare;
-
+/**
+ * se importan las clases necesarias
+ */
 import javax.swing.*;
 import java.awt.*;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import sonidos.ReproductorSonido;
-
+/**
+ * clase que modela a nuestro Screamer el cual saldra cuando el jugador pierda una vida
+ * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ * @version 1.0
+ * @since 24052025
+ */
 public class Screamer {
 
     public static void mostrarScreamerConSonido(String rutaGif, String rutaSonido) {
@@ -27,7 +38,7 @@ public class Screamer {
         ReproductorSonido sonido = new ReproductorSonido("/" + rutaSonido);
         sonido.playLoop();
 
-        // Cerrar ventana y parar sonido después de X ms (por ej. 2.5 seg)
+        // Cerrar ventana y parar sonido después d3 2.5 seg)
         new Timer(2500, e -> {
             sonido.stop();
             ventana.dispose();
