@@ -29,27 +29,39 @@ import screamer.ScreamerGIF;
  * @since 21/05/2025
  */
 public class PantallaPrincipal extends JPanel {
+    //variable booleana que detecta si tenemos un screamer en pantalla
     private boolean enScreamer = false;
+    //variable que contendra a nuestra pelota
     private Pelota pelota;
+    //variable que contendra a nuestro jugador
     private Player jugador;
+    //imagen para el fondo de nuestro juego
     private Image fondo;
+    //arreglo de ladrillos para luego dibujarlos
     private ArrayList<Ladrillo> ladrillos;
+    //variable que contendra nuestro puntaje
     private Puntaje puntaje;
-    private int puntajeVisual = 0; // Puntaje mostrado visualmente
-
+    private int puntajeVisual = 0; 
+    /**
+     * metodo constructor
+     */
     public PantallaPrincipal() {
+        //inicialimos la imagen de fondo
         fondo = new ImageIcon(getClass().getResource("/images/Jena.jpeg")).getImage();
         setFocusable(true);
         setDoubleBuffered(true);
+        //inicializamos nuestro puntaje
         puntaje = new Puntaje();
-
+        //inicializamos nuestro jugador
         jugador = new Player(350, 550, 100, 15);
-        jugador.setVidas(2); // Establecer 2 vidas al iniciar
+        //inicializamos dos vidas para el jugador
+        jugador.setVidas(2);
+        //inicializamos nuestra pelota
         pelota = new Pelota(390, 400);
 
         ladrillos = new ArrayList<>();
         int columnas = 10;
-        int filas = 5;
+        int filas = 3;
         int anchoLadrillo = 60;
         int altoLadrillo = 20;
         int espacio = 10;
@@ -147,13 +159,17 @@ public class PantallaPrincipal extends JPanel {
         // Dibujar información de puntaje y vidas
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
+        //string que mostrara nuestros puntos actuales
         g.drawString("Puntos: " + puntajeVisual, 20, 30);
+        //string que mostrara nuestra racha actual
         g.drawString("Racha: " + puntaje.getRacha(), 300, 30);
+        //texto que muestra nuestras vidas actuales
         g.drawString("Vidas: " + jugador.getVidas(), 600, 30);
-
+        //dibujamos nuestro jugador
         jugador.draw(g);
+        //dibujamos nuestra pelota
         pelota.draw(g);
-
+        //dibujamos nuestros ladrillos
         for (Ladrillo ladrillo : ladrillos) {
             ladrillo.draw(g);
         }

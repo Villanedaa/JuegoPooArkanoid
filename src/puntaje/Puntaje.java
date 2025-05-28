@@ -55,7 +55,10 @@ public class Puntaje {
     //    long tiempoTranscurrido = (System.currentTimeMillis() - tiempoInicio) / 1000;
       //return Math.max(0, 0 - (int)tiempoTranscurrido * 10);
     //}
-
+    /**
+     * metodo que retorna nuestro total de puntos
+     * @return : puntos
+     */
     public int getPuntos() {
         return puntos;
     }
