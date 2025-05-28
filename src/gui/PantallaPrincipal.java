@@ -21,6 +21,7 @@ import models.ladrillo.Ladrillo;
 import puntaje.Puntaje;
 import pelota.Pelota;
 import screamer.ScreamerGIF;
+import javax.swing.JOptionPane;
 
 /**
  * Ventana principal del juego
@@ -28,7 +29,6 @@ import screamer.ScreamerGIF;
  * @version 1.0
  * @since 21/05/2025
  */
-
 public class PantallaPrincipal extends JPanel {
     private boolean enScreamer = false;
     private Pelota pelota;
@@ -37,16 +37,17 @@ public class PantallaPrincipal extends JPanel {
     private ArrayList<Ladrillo> ladrillos;
     private Puntaje puntaje;
     private int puntajeVisual = 0; // Puntaje mostrado visualmente
+    private int vidas = 2; // Cantidad de vidas del jugador
 
     public PantallaPrincipal() {
         fondo = new ImageIcon(getClass().getResource("/images/Jena.jpeg")).getImage();
         setFocusable(true);
         setDoubleBuffered(true);
         puntaje = new Puntaje();
-        
+
         jugador = new Player(350, 550, 100, 15);
         pelota = new Pelota(390, 400);
-        
+
         ladrillos = new ArrayList<>();
         int columnas = 10;
         int filas = 5;
@@ -78,36 +79,43 @@ public class PantallaPrincipal extends JPanel {
         });
 
         Timer timer = new Timer(16, e -> {
-    if (!enScreamer) {
-        pelota.move(getWidth(), getHeight());
-        pelota.checkCollisionWithPlayer(jugador);
+            if (!enScreamer) {
+                pelota.move(getWidth(), getHeight());
+                pelota.checkCollisionWithPlayer(jugador);
 
-        for (Ladrillo ladrillo : ladrillos) {
-            if (!ladrillo.isDestruido() && pelota.getBounds().intersects(ladrillo.getBounds())) {
-                ladrillo.setDestruido(true);
-                puntaje.agregarPuntos(1);  // <-- Aquí sumamos solo 1 punto por ladrillo
-                pelota.rebotar();
-                break;
+                for (Ladrillo ladrillo : ladrillos) {
+                    if (!ladrillo.isDestruido() && pelota.getBounds().intersects(ladrillo.getBounds())) {
+                        ladrillo.setDestruido(true);
+                        puntaje.agregarPuntos(1);  // <-- Aquí sumamos solo 1 punto por ladrillo
+                        pelota.rebotar();
+                        break;
+                    }
+                }
+
+                // Incrementar visualmente el puntaje de uno en uno (animado)
+                if (puntajeVisual < puntaje.getPuntos()) {
+                    puntajeVisual++;
+                }
+
+                if (pelota.perdio()) {
+                    vidas--;
+                    puntaje.resetearRacha();
+                    enScreamer = true;
+
+                    if (vidas <= 0) {
+                        puntaje.guardarPuntajeEnArchivo("puntajes.txt");
+                        JOptionPane.showMessageDialog(this, "¡Juego terminado!\nPuntaje final: " + puntaje.getPuntos());
+                        System.exit(0);
+                    } else {
+                        new Thread(() -> {
+                            ScreamerGIF.mostrarScreamerConSonido("videos/jefGIF.gif", "sounds/gritoTerror.wav");
+                            pelota.reset(getWidth(), getHeight());
+                            enScreamer = false;
+                        }).start();
+                    }
+                }
             }
-        }
-
-        // Incrementar visualmente el puntaje de uno en uno (animado)
-        if (puntajeVisual < puntaje.getPuntos()) {
-            puntajeVisual++;
-        }
-
-        if (pelota.perdio()) {
-            puntaje.resetearRacha();
-            enScreamer = true;
-
-            new Thread(() -> {
-                ScreamerGIF.mostrarScreamerConSonido("videos/jefGIF.gif", "sounds/gritoTerror.wav");
-                pelota.reset(getWidth(), getHeight());
-                enScreamer = false;
-            }).start();
-        }
-    }
-    repaint();
+            repaint();
         });
         timer.start();
     }
@@ -129,12 +137,13 @@ public class PantallaPrincipal extends JPanel {
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Puntos: " + puntajeVisual, 20, 30);
         g.drawString("Racha: " + puntaje.getRacha(), 300, 30);
+        g.drawString("Vidas: " + vidas, 500, 30);
 
         jugador.draw(g);
         pelota.draw(g);
 
         for (Ladrillo ladrillo : ladrillos) {
-             ladrillo.draw(g);
+            ladrillo.draw(g);
         }
     }
 

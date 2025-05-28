@@ -28,7 +28,10 @@ public class Player {
    //velocidad de movimiento de 10 pixeles
    private int velocidad = 12;
    // imagen que sera dibujada para nuestro jugador
-    private Image imagen;
+   private Image imagen;
+   // vidas del jugador
+   private int vidas;
+
     /**
      * Metodo constructor
      * @param x : coordenadas en x
@@ -41,94 +44,71 @@ public class Player {
         this.y = y;
         this.width = width;
         this.height = height;
-        // Cargar imagen desde la carpeta images
+        this.vidas = 2; // el jugador inicia con 2 vidas
         imagen = new ImageIcon(getClass().getResource("/images/maderaJugador.jpeg")).getImage();
     }
-   /**
-    * metodo que retorna coordenadas en x
-    * @return 
-    */
+
     public int getX() {
         return x;
     }
-    /**
-     * metodo para establecer coordenadas en x
-     * @param x 
-     */
+
     public void setX(int x) {
         this.x = x;
     }
-    /**
-     * metodo para retornar coordenadas en y
-     * @return 
-     */
+
     public int getY() {
         return y;
     }
-    /**
-     * metodo para establecer coordenadas en y
-     * @param y 
-     */
+
     public void setY(int y) {
         this.y = y;
     }
-    /**
-     * metodo pafa obtener el ancho
-     * @return 
-     */
+
     public int getWidth() {
         return width;
     }
-    /**
-     * metodo para establecer el ancho
-     * @param width 
-     */
+
     public void setWidth(int width) {
         this.width = width;
     }
-    /**
-     * metodo para obtener el alto
-     * @return 
-     */
+
     public int getHeight() {
         return height;
     }
-    /**
-     * metodo para establecer el alto
-     * @param height 
-     */
+
     public void setHeight(int height) {
         this.height = height;
     }
-   /**
-    * metodo para mover nuestro jugador a la izquierda
-    * aca el limite es 0
-    */
+
     public void moverIzquierda() {
         x -= velocidad;
         if (x < 0) x = 0;
     }
-        /**
-         * metodo para mover nuestro jugador a la derecha
-         * @param limitePantalla 
-         */
-        public void moverDerecha(int limitePantalla) {
+
+    public void moverDerecha(int limitePantalla) {
         x += velocidad;
         if (x + width > limitePantalla) {
             x = limitePantalla - width;
         }
     }
-    /**
-     * metodo que dibuja nuestro jugador
-     * @param g 
-     */
+
     public void draw(Graphics g) {
         g.drawImage(imagen, x, y, width, height, null);
     }
-    public Rectangle obtenerLimites() {
-    return new Rectangle(x, y, width, height);
-}
 
-   
-    
+    public Rectangle obtenerLimites() {
+        return new Rectangle(x, y, width, height);
+    }
+
+    // método para obtener las vidas
+    public int getVidas() {
+        return vidas;
+    }
+
+    // método para restar una vida
+    public void perderVida() {
+        if (vidas > 0) {
+            vidas--;
+        }
+    }
 }

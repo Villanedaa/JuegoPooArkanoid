@@ -3,20 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package puntaje;
+
 /**
  * clase que modela el sistema de puntaje
  * @authorc camilo cardona
  * @version 1.0
  * @since 27/05/2025
  */
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Puntaje {
     private int puntos;
     private int multiplicador;
     private long tiempoInicio;
     private int racha;
-/**
- * metodo constructor 
- */
+
+    /**
+     * metodo constructor 
+     */
     public Puntaje() {
         this.puntos = 0;
         this.multiplicador = 1;
@@ -53,4 +60,17 @@ public class Puntaje {
     public int getRacha() {
         return racha;
     }
+
+    /**
+     * Guarda el puntaje actual en un archivo de texto
+     * @param nombreArchivo Nombre del archivo donde se almacenará el puntaje
+     */
+    public void guardarPuntajeEnArchivo(String nombreArchivo) {
+    try (FileWriter writer = new FileWriter(nombreArchivo, true)) {
+        writer.write("Puntaje final: " + getPuntos() + "\n");
+    } catch (IOException e) {
+        System.err.println("Error al guardar el puntaje: " + e.getMessage());
+    }
+}
+    
 }
