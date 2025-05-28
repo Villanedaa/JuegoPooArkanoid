@@ -8,20 +8,30 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import player.Player;
-
+/**
+ * Clase que modela nuestra pelota
+ * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ * @since 21052025
+ * @version 1.0
+ */
 public class Pelota {
+    //variables que contienen las coordenadas d 
     private int x, y;
     private int diametro = 15;
     private int dx = 4; // Velocidad horizontal
     private int dy = -4; // Velocidad vertical
     private boolean perdio = false;
-
+    /**
+     * metodo contructor
+     * @param x : coordenada en x
+     * @param y : coordenada en y
+     */
     public Pelota(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public void move(int ancho, int alto) {
+    public void movimiento(int ancho, int alto) {
         if (perdio) return; // No mover si ya perdió
 
         x += dx;
@@ -37,14 +47,14 @@ public class Pelota {
             dy = -dy;
         }
 
-        // Si toca el fondo (pierde)
+        // Si toca el fondo pierde
         if (y >= alto) {
             perdio = true;
         }
     }
 
-    public void checkCollisionWithPlayer(Player player) {
-        if (perdio) return; // No colisiones si ya perdió
+    public void colisionarJugador(Player player) {
+        if (perdio) return; 
 
         Rectangle ballRect = new Rectangle(x, y, diametro, diametro);
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
@@ -60,7 +70,7 @@ public class Pelota {
             y = player.getY() - diametro;
         }
     }
-
+    //metodo para volver a redibujar la pelota cuando perdemos
     public void reset(int panelWidth, int panelHeight) {
         x = panelWidth / 2 - diametro / 2;
         y = panelHeight / 2 - diametro / 2;

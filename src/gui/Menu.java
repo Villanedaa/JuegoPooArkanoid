@@ -43,7 +43,6 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnJUGAR = new javax.swing.JButton();
-        btnPUNTAJE = new javax.swing.JButton();
         btnSALIR = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -82,15 +81,6 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
         btnJUGAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnJUGARActionPerformed(evt);
-            }
-        });
-
-        btnPUNTAJE.setBackground(new java.awt.Color(0, 0, 0));
-        btnPUNTAJE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPUNTAJE.setText("CONOCER PUNTAJES");
-        btnPUNTAJE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPUNTAJEActionPerformed(evt);
             }
         });
 
@@ -154,9 +144,7 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
                                     .addComponent(btnSALIR1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnJUGAR, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnPUNTAJE, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnJUGAR, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(154, 154, 154)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44))))
@@ -181,17 +169,15 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnJUGAR, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPUNTAJE, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(48, 48, 48)
                         .addComponent(btnSALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(48, 48, 48)
                         .addComponent(btnSALIR1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +192,7 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         pack();
@@ -220,7 +206,7 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
         sonidoMenu.stop(); // Detiene la música del menú
     }
 
-    PantallaPrincipal juego = new PantallaPrincipal();
+    Juego juego = new Juego();
     juego.setVisible(true);
 
     ReproductorSonido sonido = new ReproductorSonido("/sounds/sonidoFondoJuego.wav");
@@ -234,23 +220,6 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
     ventanaJuego.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btnJUGARActionPerformed
-
-    private void btnPUNTAJEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPUNTAJEActionPerformed
-        StringBuilder sb = new StringBuilder();
-        sb.append("TOP PUNTAJES:\n\n");
-        
-        puntajesAltos.sort(Collections.reverseOrder());
-        
-        for (int i = 0; i < Math.min(5, puntajesAltos.size()); i++) {
-            sb.append((i+1)).append(". ").append(puntajesAltos.get(i)).append("\n");
-        }
-        
-        if (puntajesAltos.isEmpty()) {
-            sb.append("Aún no hay puntajes registrados");
-        }
-        
-        JOptionPane.showMessageDialog(this, sb.toString(), "Puntajes Altos", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnPUNTAJEActionPerformed
     /**
      * si el jugador presiona este boton, Se cierra el Jframe actual
      * @param evt 
@@ -285,7 +254,6 @@ private java.util.List<Integer> puntajesAltos = new ArrayList<>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJUGAR;
-    private javax.swing.JButton btnPUNTAJE;
     private javax.swing.JButton btnSALIR;
     private javax.swing.JButton btnSALIR1;
     private javax.swing.JLabel jLabel1;

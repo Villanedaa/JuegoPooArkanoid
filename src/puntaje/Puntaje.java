@@ -20,7 +20,7 @@ public class Puntaje {
     private int puntos;
     //variable que multiplicara nuestros puntos cuanto tengamos una racha
     private int multiplicador;
-    private long tiempoInicio;
+   
     //variable que guardara cuantos ladrillos golpeamos de seguido
     private int racha;
 

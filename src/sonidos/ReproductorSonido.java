@@ -24,19 +24,22 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class ReproductorSonido {
+    //sirve para reproducir audios
     private Clip clip;
 
     public ReproductorSonido(String soundPath) {
         try {
+            //url de donde esta nuestro audio
             URL url = getClass().getResource(soundPath);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
             clip = AudioSystem.getClip();
+            //abre el audio
             clip.open(audioIn);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | NullPointerException e) {
             System.err.println("Error al cargar el sonido: " + e.getMessage());
         }
     }
-
+    //bucle de reproduccion para generar los sonidos
     public void playLoop() {
         if (clip != null) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);

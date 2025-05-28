@@ -28,7 +28,7 @@ import screamer.ScreamerGIF;
  * @version 1.0
  * @since 21/05/2025
  */
-public class PantallaPrincipal extends JPanel {
+public class Juego extends JPanel {
     //variable booleana que detecta si tenemos un screamer en pantalla
     private boolean enScreamer = false;
     //variable que contendra a nuestra pelota
@@ -41,11 +41,11 @@ public class PantallaPrincipal extends JPanel {
     private ArrayList<Ladrillo> ladrillos;
     //variable que contendra nuestro puntaje
     private Puntaje puntaje;
-    private int puntajeVisual = 0; 
+    private int puntajeEnPantalla = 0; 
     /**
      * metodo constructor
      */
-    public PantallaPrincipal() {
+    public Juego() {
         //inicialimos la imagen de fondo
         fondo = new ImageIcon(getClass().getResource("/images/Jena.jpeg")).getImage();
         setFocusable(true);
@@ -91,11 +91,11 @@ public class PantallaPrincipal extends JPanel {
 
         Timer timer = new Timer(16, e -> {
             if (!enScreamer) {
-                pelota.move(getWidth(), getHeight());
-                pelota.checkCollisionWithPlayer(jugador);
+                pelota.movimiento(getWidth(), getHeight());
+                pelota.colisionarJugador(jugador);
 
                 for (Ladrillo ladrillo : ladrillos) {
-                    if (!ladrillo.isDestruido() && pelota.getBounds().intersects(ladrillo.getBounds())) {
+                    if (!ladrillo.isDestruido() && pelota.getBounds().intersects(ladrillo.getLimites())) {
                         ladrillo.setDestruido(true);
                         puntaje.agregarPuntos(1);  // <-- Aquí sumamos solo 1 punto por ladrillo
                         pelota.rebotar();
@@ -103,9 +103,9 @@ public class PantallaPrincipal extends JPanel {
                     }
                 }
 
-                // Incrementar visualmente el puntaje de uno en uno (animado)
-                if (puntajeVisual < puntaje.getPuntos()) {
-                    puntajeVisual++;
+                
+                if (puntajeEnPantalla < puntaje.getPuntos()) {
+                    puntajeEnPantalla++;
                 }
 
                 if (pelota.perdio()) {
@@ -160,7 +160,7 @@ public class PantallaPrincipal extends JPanel {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         //string que mostrara nuestros puntos actuales
-        g.drawString("Puntos: " + puntajeVisual, 20, 30);
+        g.drawString("Puntos: " + puntajeEnPantalla, 20, 30);
         //string que mostrara nuestra racha actual
         g.drawString("Racha: " + puntaje.getRacha(), 300, 30);
         //texto que muestra nuestras vidas actuales
