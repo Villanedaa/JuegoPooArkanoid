@@ -25,6 +25,7 @@ import screamer.ScreamerGIF;
 /**
  * Ventana principal del juego
  * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ * * @author Sebastian<juanc.cardonav@autonoma.edu.co>
  * @version 1.0
  * @since 21/05/2025
  */
@@ -58,7 +59,7 @@ public class Juego extends JPanel {
         jugador.setVidas(2);
         //inicializamos nuestra pelota
         pelota = new Pelota(390, 400);
-
+        //crenado los ladrillos
         ladrillos = new ArrayList<>();
         int columnas = 10;
         int filas = 3;
@@ -67,7 +68,7 @@ public class Juego extends JPanel {
         int espacio = 10;
         int margenX = 50;
         int margenY = 50;
-
+        //ciclo para los ladrillos 
         for (int fila = 0; fila < filas; fila++) {
             for (int col = 0; col < columnas; col++) {
                 int x = margenX + col * (anchoLadrillo + espacio);
@@ -75,7 +76,7 @@ public class Juego extends JPanel {
                 ladrillos.add(new Ladrillo(x, y, anchoLadrillo, altoLadrillo, fila));
             }
         }
-
+         //para mover a la derecha y izquierda 
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -88,13 +89,14 @@ public class Juego extends JPanel {
                 repaint();
             }
         });
-
+        
         Timer timer = new Timer(16, e -> {
             if (!enScreamer) {
                 pelota.movimiento(getWidth(), getHeight());
                 pelota.colisionarJugador(jugador);
-
+                
                 for (Ladrillo ladrillo : ladrillos) {
+                    //los limites de la pelota tocan los limites del ladrillo este se elimina 
                     if (!ladrillo.isDestruido() && pelota.getBounds().intersects(ladrillo.getLimites())) {
                         ladrillo.setDestruido(true);
                         puntaje.agregarPuntos(1);  // <-- Aquí sumamos solo 1 punto por ladrillo
