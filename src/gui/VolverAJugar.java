@@ -8,6 +8,7 @@ package gui;
  *
  * Clase que modela un Jframe el cual sera invocado cuando el jugador se quede sin vidas
  * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ * @author Sebastian<juanc.cardonav@autonoma.edu.co>
  * @version 1.0
  * @since 28052025
  */

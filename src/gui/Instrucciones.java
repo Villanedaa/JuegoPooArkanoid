@@ -8,6 +8,7 @@ package gui;
 /**
  * clase que muestra las instrucciones para jugar
  * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ * @author Sebastian<juanc.cardonav@autonoma.edu.co>
  * @version 1.0
  * @since 27052025
  */

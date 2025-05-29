@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 /**
  * clase que modela a nuestro jugador
  * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ *  @author Sebastian<juanc.cardonav@autonoma.edu.co>
  * @version 1.0
  * @since 21/05/2025
  */

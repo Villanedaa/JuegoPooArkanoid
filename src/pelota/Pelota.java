@@ -9,10 +9,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import player.Player;
 /**
- * Clase que modela nuestra pelota
+ * clase que modela una pelota 
  * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
- * @since 21052025
+ * @author Sebastian<juanc.cardonav@autonoma.edu.co>
  * @version 1.0
+ * @since 27052025
  */
 public class Pelota {
     //variables que contienen las coordenadas d 

@@ -5,14 +5,18 @@ import java.awt.*;
 import java.io.File;
 import javax.sound.sampled.*;
 
-public class ScreamerGIF {
-
     /**
      * Reproduce el sonido, luego muestra un JFrame fullscreen con un GIF.
+     * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+     *  @author Sebastian<juanc.cardonav@autonoma.edu.co>
      * El JFrame se cierra automáticamente después de 2.5 segundos.
      * @param rutaGif ruta relativa del gif dentro del proyecto, ejemplo: "videos/jefGIF.gif"
      * @param rutaSonido ruta relativa del sonido dentro del proyecto, ejemplo: "sounds/gritoTerror.wav"
      */
+
+public class ScreamerGIF {
+
+
     public static void mostrarScreamerConSonido(String rutaGif, String rutaSonido) {
         try {
             // Reproducir sonido

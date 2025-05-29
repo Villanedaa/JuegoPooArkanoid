@@ -6,8 +6,8 @@ package sonidos;
 
 /**
  * clase reproductora de sonido
- *
- * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ *@author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ *  @author Sebastian<juanc.cardonav@autonoma.edu.co>
  * @since 21/05/2025
  * @version 1.0
  */
@@ -46,7 +46,7 @@ public class ReproductorSonido {
             clip.start();
         }
     }
-
+    //metodo para detener el audio
     public void stop() {
         if (clip != null && clip.isRunning()) {
             clip.stop();

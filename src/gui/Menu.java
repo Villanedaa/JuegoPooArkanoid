@@ -14,7 +14,8 @@ import sonidos.ReproductorSonido;
 
 /**s
  * Clase Main en donde iniciamos nuestro juego.
- * @author Sebastian<sebastian.villanedag@autonoma.edu.co>
+ * @author Sebastian<sebastian.villanedag@autonoma.edu.co>}
+ * @author Sebastian<juanc.cardonav@autonoma.edu.co>
  * @version 1.0
  * @since 28052025
  */
